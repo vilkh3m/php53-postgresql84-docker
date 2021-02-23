@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  web:
+    image: vilkh3m/apache-php53:v1
+    volumes:
+      - ./web:/var/www
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+
+  db:
+    image: vilkh3m/postgresql-8.4:v1
+    ports:
+      - "5432:5432"
+    volumes: 
+      - ./baza8:/var/lib/postgresql/data
+      - ./kopia:/kopia
+    environment:
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: postgres
+      ENCODING: SQL_ASCII
